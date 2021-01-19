@@ -107,7 +107,7 @@ resource "google_container_cluster" "primary" {
 resource "google_logging_project_sink" "storage-sink" {
   name        = "gke-storage-sink"
   destination = "storage.googleapis.com/${google_storage_bucket.gke-log-bucket.name}"
-  filter      = "resource.type = container"
+  filter      = "resource.type = k8s_container"
 
   unique_writer_identity = true
 }
@@ -116,7 +116,7 @@ resource "google_logging_project_sink" "storage-sink" {
 resource "google_logging_project_sink" "bigquery-sink" {
   name        = "gke-bigquery-sink"
   destination = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.gke-bigquery-dataset.dataset_id}"
-  filter      = "resource.type = container"
+  filter      = "resource.type = k8s_container"
 
   unique_writer_identity = true
 }
